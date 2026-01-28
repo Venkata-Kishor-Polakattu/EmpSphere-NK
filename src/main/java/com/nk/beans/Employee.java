@@ -4,7 +4,10 @@ import com.nk.enums.EmpGender;
 import com.nk.enums.EmpStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,24 +19,31 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(unique = true, nullable = false)
     private String empCode;
 
+    @NotNull
     @Column(nullable = false)
     private String firstName;
 
+    @NotNull
     @Column(nullable = false)
     private String lastName;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private EmpGender gender;
 
+    @NotNull
     @Column(nullable = false,unique = true,length = 10)
     private String phoneNumber;
 
+    @NotNull
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
+    @NotNull
     @Column(nullable = false)
     private String designation;
 
@@ -46,6 +56,7 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmpStatus  status;
 
+    @NotNull
     @Column(nullable = false,unique = true)
     @Email
     private String email;
@@ -57,10 +68,13 @@ public class Employee {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 }

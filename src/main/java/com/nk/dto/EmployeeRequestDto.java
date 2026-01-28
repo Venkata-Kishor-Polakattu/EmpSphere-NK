@@ -17,7 +17,7 @@ public class EmployeeRequestDto {
     private LocalDate dateOfBirth;
     private String designation;
     private Double salary;
-    private LocalTime joiningDate;
+    private LocalDate joiningDate;
     private EmpStatus status;
     private String email;
     private String password;

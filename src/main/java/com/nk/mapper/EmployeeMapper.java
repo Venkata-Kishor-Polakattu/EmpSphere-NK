@@ -5,12 +5,13 @@ import com.nk.beans.Department;
 import com.nk.beans.Employee;
 import com.nk.dto.AddressDto;
 import com.nk.dto.DepartmentResponseDto;
+import com.nk.dto.EmployeeRequestDto;
 import com.nk.dto.EmployeeResponseDto;
 
 public class EmployeeMapper {
 
-    // ===================== Employee -> EmployeeResponseDto =====================
-    public static EmployeeResponseDto toEmployeeResponseDto(Employee employee) {
+    // ===================== EmployeeEntity -> EmployeeResponseDto =====================
+    public static EmployeeResponseDto toResponseDto(Employee employee) {
         if (employee == null) return null;
         EmployeeResponseDto dto = new EmployeeResponseDto();
         dto.setId(employee.getId());
@@ -24,12 +25,34 @@ public class EmployeeMapper {
         dto.setStatus(employee.getStatus());
         dto.setEmail(employee.getEmail());
 
+        // Address mapping
         dto.setAddress(toAddressDto(employee.getAddress()));
-        dto.setDepartment(toDepartmentResponseDto(employee.getDepartment()));
 
+        // Department mapping
+        dto.setDepartment(toDepartmentResponseDto(employee.getDepartment()));
 
         return dto;
     }
+    // ===================== RequestDto -> EmployeeEntity =====================
+    public static Employee toEmployee(EmployeeRequestDto dto, Department department){
+        if (dto == null) return null;
+        Employee employee = new Employee();
+        employee.setEmpCode(dto.getEmpCode());
+        employee.setFirstName(dto.getFirstName());
+        employee.setLastName(dto.getLastName());
+        employee.setGender(dto.getGender());
+        employee.setPhoneNumber(dto.getPhoneNumber());
+        employee.setDateOfBirth(dto.getDateOfBirth());
+        employee.setJoiningDate(dto.getJoiningDate());
+        employee.setDesignation(dto.getDesignation());
+        employee.setSalary(dto.getSalary());
+        employee.setStatus(dto.getStatus());
+        employee.setEmail(dto.getEmail());
+        employee.setPassword(dto.getPassword());
+
+        return  employee;
+    }
+
     // ===================== Address Mapper =====================
     public static AddressDto toAddressDto(Address address) {
         if (address == null) return null;

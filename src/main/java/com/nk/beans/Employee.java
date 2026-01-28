@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -25,7 +26,7 @@ public class Employee {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    private EmpGender  gender;
+    private EmpGender gender;
 
     @Column(nullable = false,unique = true,length = 10)
     private String phoneNumber;
@@ -45,7 +46,7 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmpStatus  status;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     @Email
     private String email;
 
@@ -53,8 +54,13 @@ public class Employee {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

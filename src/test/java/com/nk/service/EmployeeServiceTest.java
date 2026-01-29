@@ -1,9 +1,8 @@
-package com.nk;
+package com.nk.service;
 
 import com.nk.dto.AddressDto;
 import com.nk.dto.EmployeeRequestDto;
 import com.nk.enums.EmpGender;
-import com.nk.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

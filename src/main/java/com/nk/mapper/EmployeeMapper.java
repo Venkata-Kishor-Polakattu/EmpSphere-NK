@@ -4,10 +4,13 @@ import com.nk.beans.Address;
 import com.nk.beans.Department;
 import com.nk.beans.Employee;
 import com.nk.dto.AddressDto;
-import com.nk.dto.DepartmentResponseDto;
 import com.nk.dto.EmployeeRequestDto;
 import com.nk.dto.EmployeeResponseDto;
+import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@RequiredArgsConstructor
 public class EmployeeMapper {
 
     // ===================== EmployeeEntity -> EmployeeResponseDto =====================
@@ -29,7 +32,7 @@ public class EmployeeMapper {
         dto.setAddress(toAddressDto(employee.getAddress()));
 
         // Department mapping
-        dto.setDepartment(toDepartmentResponseDto(employee.getDepartment()));
+        dto.setDepartment(DepartmentMapper.toDepartmentResponseDto(employee.getDepartment()));
 
         return dto;
     }
@@ -37,18 +40,24 @@ public class EmployeeMapper {
     public static Employee toEmployee(EmployeeRequestDto dto, Department department){
         if (dto == null) return null;
         Employee employee = new Employee();
-        employee.setEmpCode(dto.getEmpCode());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
         employee.setGender(dto.getGender());
         employee.setPhoneNumber(dto.getPhoneNumber());
         employee.setDateOfBirth(dto.getDateOfBirth());
-        employee.setJoiningDate(dto.getJoiningDate());
         employee.setDesignation(dto.getDesignation());
         employee.setSalary(dto.getSalary());
+        employee.setJoiningDate(dto.getJoiningDate());
         employee.setStatus(dto.getStatus());
         employee.setEmail(dto.getEmail());
         employee.setPassword(dto.getPassword());
+
+        employee.setCreatedAt(LocalDateTime.now());
+        employee.setUpdatedAt(LocalDateTime.now());
+
+        employee.setAddress(toAddressEntity(dto.getAddress()));
+        employee.setDepartment(department);
+
 
         return  employee;
     }
@@ -75,19 +84,4 @@ public class EmployeeMapper {
         address.setPinCode(dto.getPinCode());
         return address;
     }
-
-    // ===================== Department Mapper =====================
-    public static DepartmentResponseDto toDepartmentResponseDto(Department department) {
-        if (department == null) return null;
-        DepartmentResponseDto dto = new DepartmentResponseDto();
-        dto.setId(department.getDepartmentId());
-        dto.setDeptCode(department.getDeptCode());
-        dto.setDeptName(department.getDeptName());
-        dto.setLocation(department.getLocation());
-        dto.setManagerName(department.getManagerName());
-        return dto;
-    }
-
-    // ===================== EmployeeRequestDto -> Employee =====================
-
 }

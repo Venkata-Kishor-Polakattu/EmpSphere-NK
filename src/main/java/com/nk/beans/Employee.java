@@ -50,14 +50,14 @@ public class Employee {
 
     private Double salary;
 
-    @Column(nullable = false)
+    @Column(nullable = false,updatable = false)
     private LocalDate joiningDate;
 
     @Enumerated(EnumType.STRING)
     private EmpStatus  status;
 
     @NotNull
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false,unique = true,updatable = false)
     @Email
     private String email;
 

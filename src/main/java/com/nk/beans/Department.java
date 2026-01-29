@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -20,7 +19,7 @@ public class Department {
 
     @NotNull
     @Column(unique = true, nullable = false)
-    private String deptCode;
+    private String deptCode; // we should generate before creating
 
     @NotNull
     @Column(unique = true, nullable = false)
@@ -32,9 +31,9 @@ public class Department {
     private String managerName;
 
     @CreationTimestamp
-    private LocalDate createdAt;
+    private LocalDate createdAt; // we should generate
     @UpdateTimestamp
-    private LocalTime updatedAt;
+    private LocalDate updatedAt; // we should generate
 
 
     @OneToMany(mappedBy = "department")

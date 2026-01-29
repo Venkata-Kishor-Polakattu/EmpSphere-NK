@@ -5,11 +5,9 @@ import com.nk.enums.EmpStatus;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Data
 public class EmployeeRequestDto {
-    private String empCode;
     private String firstName;
     private String lastName;
     private EmpGender gender;

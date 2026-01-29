@@ -2,14 +2,10 @@ package com.nk.dto;
 
 import com.nk.enums.EmpGender;
 import com.nk.enums.EmpStatus;
-import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
-public class EmployeeResponseDto {
-    private Long id;
+public class UpdatableEmployeeDto {
     private String firstName;
     private String lastName;
     private EmpGender gender;
@@ -18,9 +14,5 @@ public class EmployeeResponseDto {
     private String designation;
     private Double salary;
     private EmpStatus status;
-    private String email;
     private AddressDto address;
-    private DepartmentResponseDto department;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

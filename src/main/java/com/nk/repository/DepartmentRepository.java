@@ -16,4 +16,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     @Query("select count(*) from Department d")
     Long countAll();
+
+
+    Optional<Department> deleteByDeptCode(String deptCode);
 }

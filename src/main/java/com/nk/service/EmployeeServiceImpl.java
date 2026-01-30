@@ -5,6 +5,7 @@ import com.nk.beans.Employee;
 import com.nk.dto.EmployeeRequestDto;
 import com.nk.dto.EmployeeResponseDto;
 import com.nk.dto.UpdatableEmployeeDto;
+import com.nk.enums.EmpStatus;
 import com.nk.exception.DepartmentNotFoundException;
 import com.nk.exception.EmployeeNotFoundException;
 import com.nk.mapper.EmployeeMapper;
@@ -82,9 +83,16 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public EmployeeResponseDto changeEmployeeStatus(Long id, String status) {
-        return null;
+    public EmployeeResponseDto changeEmployeeStatus(String empCode,String status) {
+        Employee emp=employeeRepository.getEmployeeByEmpCode(empCode)
+                .orElseThrow(()-> new EmployeeNotFoundException("Employee Does not exist with :"+empCode));
+
+        emp.setStatus(EmpStatus.valueOf(status));
+        Employee saved = employeeRepository.save(emp);
+        return EmployeeMapper.toResponseDto(saved);
     }
+
+
 
     @Override
     public List<EmployeeResponseDto> getEmployeesByDepartment(Long departmentId) {

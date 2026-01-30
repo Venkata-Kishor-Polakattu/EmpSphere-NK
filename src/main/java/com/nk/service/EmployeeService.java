@@ -19,7 +19,7 @@ public interface EmployeeService {
 
         void deleteEmployee(String empCode);
 
-        EmployeeResponseDto changeEmployeeStatus(Long id, String status);
+        EmployeeResponseDto changeEmployeeStatus(String empCode,String status);
 
         List<EmployeeResponseDto> getEmployeesByDepartment(Long departmentId);
 }

@@ -8,5 +8,8 @@ public interface AdminServices {
     DepartmentResponseDto getDepartmentById(Long id);
     DepartmentResponseDto getDepartmentByDeptCode(String deptCode);
     DepartmentResponseDto updateDepartment(DepartmentResponseDto department);
-    void deleteDepartmentById(Long id);
+    void deleteDepartment(String deptCode);
+
+    String increaseSalaryByPercentage(String empCode,Integer percentage);
+    String transferDepartment(String empCode,String deptCode);
 }

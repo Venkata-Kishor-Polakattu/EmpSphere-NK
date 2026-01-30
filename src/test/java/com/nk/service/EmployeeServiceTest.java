@@ -2,7 +2,9 @@ package com.nk.service;
 
 import com.nk.dto.AddressDto;
 import com.nk.dto.EmployeeRequestDto;
+import com.nk.dto.EmployeeResponseDto;
 import com.nk.enums.EmpGender;
+import com.nk.enums.EmpStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,13 @@ public class EmployeeServiceTest {
     @Autowired
     public EmployeeService service;
 
+    @Test
+    public void testChangeEmployeeStatus() {
+        String empCode="EMP-0001";
+        String status=String.valueOf(EmpStatus.INACTIVE);
+        EmployeeResponseDto dto = service.changeEmployeeStatus(empCode, status);
+        System.out.println(dto.toString());
+    }
 
     @Test
     public void testCreateEmployee() {

@@ -28,10 +28,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String,Object>> handleException(Exception e){
-        Map<String,Object> response = new HashMap<>();
+    public ResponseEntity<Map<String,Object>> handleException(Exception e) {
+        Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put("message", e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 }

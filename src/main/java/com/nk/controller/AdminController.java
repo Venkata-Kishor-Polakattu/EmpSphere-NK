@@ -4,7 +4,9 @@ package com.nk.controller;
 import com.nk.dto.DepartmentRequestDto;
 import com.nk.dto.DepartmentResponseDto;
 import com.nk.service.AdminServices;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,13 +18,32 @@ public class AdminController {
 
 
     @PostMapping("/create")
-    public DepartmentResponseDto  create(@RequestBody DepartmentRequestDto dto) {
-       return service.createDepartment(dto);
+    public ResponseEntity<DepartmentResponseDto>  create(@RequestBody DepartmentRequestDto dto) {
+        DepartmentResponseDto department = service.createDepartment(dto);
+        return ResponseEntity.ok().body(department);
     }
 
     @GetMapping("/{deptCode}")
-    public DepartmentResponseDto getDepartment(@PathVariable String deptCode) {
+    public ResponseEntity<DepartmentResponseDto> getDepartment(@PathVariable String deptCode) {
         DepartmentResponseDto response = service.getDepartmentByDeptCode(deptCode);
-        return response;
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/delete/{deptCode}")
+    public ResponseEntity<String>  deleteDepartment(@PathVariable String deptCode) {
+        service.deleteDepartment(deptCode);
+        return ResponseEntity.ok().body("Department deleted Successfully");
+    }
+
+    @PostMapping("/hike")
+    public ResponseEntity<String> hikeSalary(@Valid @RequestParam String empCode,@RequestParam Integer percentage){
+        String s = service.increaseSalaryByPercentage(empCode, percentage);
+        return ResponseEntity.ok().body(s);
+    }
+
+    @PostMapping("/transferDepartment")
+    public ResponseEntity<String> transferDepartment(@Valid @RequestParam String empCode,String deptCode){
+        String res = service.transferDepartment(empCode, deptCode);
+        return ResponseEntity.ok().body(res);
     }
 }

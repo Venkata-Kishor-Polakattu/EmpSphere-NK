@@ -45,10 +45,16 @@ public class EmployeeController {
         return ResponseEntity.ok().body(response);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete/{empCode}")
     public ResponseEntity<String> deleteEmployee(@PathVariable String empCode){
         service.deleteEmployee(empCode);
         return ResponseEntity.ok().body("Employee has been deleted successfully");
+    }
+
+    @GetMapping("/changeStatus")
+    public ResponseEntity<EmployeeResponseDto> changeEmployeeStatus(@Valid @RequestParam String empCode,@RequestParam String status){
+        service.changeEmployeeStatus(empCode,status);
+        return ResponseEntity.ok().body(service.getEmployeeByEmpCode(empCode));
     }
 
     /*

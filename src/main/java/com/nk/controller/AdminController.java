@@ -31,8 +31,8 @@ public class AdminController {
 
     @DeleteMapping("/delete/{deptCode}")
     public ResponseEntity<String>  deleteDepartment(@PathVariable String deptCode) {
-        service.deleteDepartment(deptCode);
-        return ResponseEntity.ok().body("Department deleted Successfully");
+        String s = service.deleteDepartment(deptCode);
+        return ResponseEntity.ok().body("Department "+s+" deleted Successfully ");
     }
 
     @PostMapping("/hike")

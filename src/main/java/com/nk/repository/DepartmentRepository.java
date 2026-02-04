@@ -2,7 +2,9 @@ package com.nk.repository;
 
 import com.nk.beans.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -18,5 +20,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Long countAll();
 
 
-    Optional<Department> deleteByDeptCode(String deptCode);
+    @Modifying
+    @Transactional
+    @Query("delete from Department d where d.deptCode=:deptCode")
+    void deleteByDeptCode(String deptCode);
 }

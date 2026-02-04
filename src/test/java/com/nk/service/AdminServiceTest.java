@@ -27,23 +27,22 @@ public class AdminServiceTest {
         DepartmentRequestDto dto=new DepartmentRequestDto();
     }
 
-    @Test
+    /*@Test
     public void testTransferDepartment(){
         service.transferDepartment("EMP-0002","DEPT2");
         System.out.println("Successfully transferred the department");
-    }
+    }*/
 
-    /*@Test
+    @Test
     public void testDeleteDepartment(){
         String deptCode="DEPT11";
         service.deleteDepartment(deptCode);
         System.out.println("Successfully deleted the department :"+deptCode);
-    }*/
-
+    }
     @Test
     public void testIncreaseSalaryByPercentage(){
         String empCode = "EMP-0001";
-        Integer percentage = 10;
+        Integer percentage = 5;
         String s = service.increaseSalaryByPercentage(empCode, percentage);
         System.out.println(s);
     }

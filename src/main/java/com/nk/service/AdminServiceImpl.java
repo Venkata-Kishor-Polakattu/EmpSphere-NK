@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -57,9 +56,11 @@ public class AdminServiceImpl implements AdminServices{
 
     @Transactional
     @Override
-    public void deleteDepartment(String deptCode) {
-       repo.deleteByDeptCode(deptCode)
-                .orElseThrow(()-> new DepartmentNotFoundException("Department not found with : "+deptCode));
+    public String deleteDepartment(String deptCode) {
+      Department dept=  repo.getDepartmentByDeptCode(deptCode)
+              .orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+deptCode));
+      repo.delete(dept);
+      return dept.getDeptName();
     }
 
     @Transactional
@@ -70,8 +71,8 @@ public class AdminServiceImpl implements AdminServices{
 
         Double salary=emp.getSalary();
         salary+=(salary/100)*percentage;
-        emp.setSalary(salary);
-        employeeRepository.save(emp);
+        emp.setSalary(salary); // Dirty read
+        //employeeRepository.save(emp); Hibernate Dirty read
         return "successfully hiked the salary for "+empCode;
     }
 
@@ -82,7 +83,9 @@ public class AdminServiceImpl implements AdminServices{
         Employee emp=employeeRepository.getEmployeeByEmpCode(empCode)
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with : "+empCode));
 
-        employeeRepository.transferEmployeeToDepartment(emp.getEmpCode(),dept.getDepartmentId());
+        emp.getDepartment().setDepartmentId(dept.getDepartmentId()); // Hibernate Dirty read
+
+        //employeeRepository.transferEmployeeToDepartment(emp.getEmpCode(),dept.getDepartmentId());
         return "successfully transferred "+empCode+" to "+dept.getDeptName();
     }
 

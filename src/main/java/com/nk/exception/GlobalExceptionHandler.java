@@ -11,6 +11,14 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(InvalidOperation.class)
+    public ResponseEntity<Map<String,Object>> handleInvalidOperation(InvalidOperation e){
+        Map<String,Object> map = new HashMap<>();
+        map.put("message",e.getMessage());
+        map.put("status",HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<Map<String,Object>> handleEmployeeNotFoundException(EmployeeNotFoundException e){
         Map<String,Object> response = new HashMap<>();

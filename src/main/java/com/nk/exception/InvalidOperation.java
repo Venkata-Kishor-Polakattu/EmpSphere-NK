@@ -1,7 +1,7 @@
 package com.nk.exception;
 
-public class InvalidEmployee extends RuntimeException {
-    public InvalidEmployee(String message) {
+public class InvalidOperation extends RuntimeException {
+    public InvalidOperation(String message) {
         super(message);
     }
 }

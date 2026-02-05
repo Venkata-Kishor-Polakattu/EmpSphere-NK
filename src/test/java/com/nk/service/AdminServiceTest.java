@@ -25,17 +25,21 @@ public class AdminServiceTest {
     @Test
     public void testUpdateDepartment(){
         DepartmentRequestDto dto=new DepartmentRequestDto();
+        dto.setDeptName("Testing");
+        dto.setLocation("Vizag");
+        dto.setManagerName("Kishor");
+        service.updateDepartment("DEPT2",dto);
     }
 
-    /*@Test
+    @Test
     public void testTransferDepartment(){
-        service.transferDepartment("EMP-0002","DEPT2");
+        service.transferDepartment("EMP-0002","DEPT01");
         System.out.println("Successfully transferred the department");
-    }*/
+    }
 
     @Test
-    public void testDeleteDepartment(){
-        String deptCode="DEPT11";
+    public void testDeleteDepartment() throws Exception {
+        String deptCode="DEPT2";
         service.deleteDepartment(deptCode);
         System.out.println("Successfully deleted the department :"+deptCode);
     }

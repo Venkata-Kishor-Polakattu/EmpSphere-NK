@@ -29,8 +29,6 @@ public class DepartmentMapper {
         department.setDeptName(dto.getDeptName());
         department.setLocation(dto.getLocation());
         department.setManagerName(dto.getManagerName());
-        department.setCreatedAt(LocalDate.now());
-        department.setUpdatedAt(LocalDate.now());
         return department;
     }
 }

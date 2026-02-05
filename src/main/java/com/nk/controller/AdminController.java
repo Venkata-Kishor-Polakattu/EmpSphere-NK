@@ -5,6 +5,7 @@ import com.nk.dto.DepartmentRequestDto;
 import com.nk.dto.DepartmentResponseDto;
 import com.nk.service.AdminServices;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,12 @@ public class AdminController {
     @GetMapping("/{deptCode}")
     public ResponseEntity<DepartmentResponseDto> getDepartment(@PathVariable String deptCode) {
         DepartmentResponseDto response = service.getDepartmentByDeptCode(deptCode);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PatchMapping("/update/{deptCode}")
+    public ResponseEntity<DepartmentResponseDto> updateDepartment(@PathVariable String deptCode, @RequestBody DepartmentRequestDto dto) {
+        DepartmentResponseDto response = service.updateDepartment(deptCode, dto);
         return ResponseEntity.ok().body(response);
     }
 

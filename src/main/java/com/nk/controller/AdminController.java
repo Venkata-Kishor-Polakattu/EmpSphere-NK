@@ -30,7 +30,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete/{deptCode}")
-    public ResponseEntity<String>  deleteDepartment(@PathVariable String deptCode) {
+    public ResponseEntity<String>  deleteDepartment(@PathVariable String deptCode) throws Exception {
         String s = service.deleteDepartment(deptCode);
         return ResponseEntity.ok().body("Department "+s+" deleted Successfully ");
     }

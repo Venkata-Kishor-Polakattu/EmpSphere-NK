@@ -21,6 +21,7 @@ public class AdminController {
     @PostMapping("/create")
     public ResponseEntity<DepartmentResponseDto>  create(@RequestBody DepartmentRequestDto dto) {
         DepartmentResponseDto department = service.createDepartment(dto);
+
         return ResponseEntity.ok().body(department);
     }
 

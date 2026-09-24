@@ -14,12 +14,7 @@ import java.util.List;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long departmentId;
-
-    @NotNull
-    @Column(unique = true, nullable = false)
-    private String deptCode; // we should generate before creating
+    private String departmentId;
 
     @NotNull
     @Column(unique = true, nullable = false)

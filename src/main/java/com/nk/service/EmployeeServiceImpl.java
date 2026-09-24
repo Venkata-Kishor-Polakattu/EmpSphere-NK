@@ -99,7 +99,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         return List.of();
     }
 
-    public String generateEmpCode(Long deptId){
+    public String generateEmpCode(String deptId){
         Long code=employeeRepository.countEmployeesByDepartment_Id(deptId)+1;
         return "EMP-"+String.format("%04d",code);
     }

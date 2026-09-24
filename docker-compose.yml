@@ -1,0 +1,21 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: empsphere-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root@1677
+      MYSQL_DATABASE: empsphere
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: empsphere-app
+    ports:
+      - "1677:1677"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:

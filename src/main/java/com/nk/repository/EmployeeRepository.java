@@ -17,8 +17,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     Optional<Employee> getEmployeeByEmpCode(String empCode);
     boolean existsByEmpCode(String empCode);
 
-    @Query("select count(e) from Employee e where e.department.departmentId=:deptId")
-    Long countEmployeesByDepartment_Id(@Param("deptId") Long departmentId);
+    @Query("select count(e) from Employee e where e.department.deptCode=:deptId")
+    Long countEmployeesByDepartment_Id(@Param("deptId") String departmentId);
 
     @Modifying
     @Transactional

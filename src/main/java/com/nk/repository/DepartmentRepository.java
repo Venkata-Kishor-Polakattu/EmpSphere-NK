@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
-    Optional<Department> findById(Long id);
+    Optional<Department> findById(String id);
     Optional<Department> getDepartmentByDeptName(String name);
     Optional<Department> getDepartmentByDeptCode(String deptCode);
 

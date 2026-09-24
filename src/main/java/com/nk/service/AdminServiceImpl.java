@@ -33,7 +33,7 @@ public class AdminServiceImpl implements AdminServices{
     public DepartmentResponseDto createDepartment(DepartmentRequestDto dto) {
         if (!repo.existsByDeptName(dto.getDeptName())) {
             Department department = DepartmentMapper.toDepartment(dto);
-            department.setDeptCode(generateDeptCode());
+            department.setDepartmentId(generateDeptCode());
             department.setCreatedAt(LocalDate.now());
             department.setUpdatedAt(LocalDate.now());
             repo.save(department);

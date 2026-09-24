@@ -20,5 +20,5 @@ public class EmployeeRequestDto {
     private String email;
     private String password;
     private AddressDto address;
-    private Long deptId;
+    private String deptId;
 }

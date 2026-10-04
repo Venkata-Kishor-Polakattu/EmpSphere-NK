@@ -14,6 +14,7 @@ public class DepartmentMapper {
     public static DepartmentResponseDto toDepartmentResponseDto(Department department) {
         if (department == null) return null;
         DepartmentResponseDto dto = new DepartmentResponseDto();
+        dto.setId(department.getId());
         dto.setDeptName(department.getDeptName());
         dto.setLocation(department.getLocation());
         dto.setManagerName(department.getManagerName());

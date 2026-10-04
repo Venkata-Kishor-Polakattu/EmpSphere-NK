@@ -6,10 +6,10 @@ import com.nk.dto.DepartmentResponseDto;
 public interface AdminServices {
     DepartmentResponseDto createDepartment(DepartmentRequestDto dto);
     DepartmentResponseDto getDepartmentById(Long id);
-    DepartmentResponseDto getDepartmentByDeptCode(String deptCode);
-    DepartmentResponseDto updateDepartment(String deptCode,DepartmentRequestDto requestDto);
-    String deleteDepartment(String deptCode)throws Exception;
+    DepartmentResponseDto getDepartmentByid(String id);
+    DepartmentResponseDto updateDepartment(String id,DepartmentRequestDto requestDto);
+    String deleteDepartment(String id)throws Exception;
 
     String increaseSalaryByPercentage(String empCode,Integer percentage);
-    String transferDepartment(String empCode,String deptCode);
+    String transferDepartment(String empCode,String id);
 }

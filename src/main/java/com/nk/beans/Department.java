@@ -14,7 +14,7 @@ import java.util.List;
 public class Department {
 
     @Id
-    private String departmentId;
+    private String id;
 
     @NotNull
     @Column(unique = true, nullable = false)

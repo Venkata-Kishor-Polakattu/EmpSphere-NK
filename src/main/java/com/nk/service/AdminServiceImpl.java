@@ -33,7 +33,7 @@ public class AdminServiceImpl implements AdminServices{
     public DepartmentResponseDto createDepartment(DepartmentRequestDto dto) {
         if (!repo.existsByDeptName(dto.getDeptName())) {
             Department department = DepartmentMapper.toDepartment(dto);
-            department.setDepartmentId(generateDeptCode());
+            department.setId(generateid());
             department.setCreatedAt(LocalDate.now());
             department.setUpdatedAt(LocalDate.now());
             repo.save(department);
@@ -51,19 +51,19 @@ public class AdminServiceImpl implements AdminServices{
     }
 
     @Override
-    public DepartmentResponseDto getDepartmentByDeptCode(String deptCode) {
+    public DepartmentResponseDto getDepartmentByid(String id) {
 
 
-        Department dept = repo.getDepartmentByDeptCode(deptCode).
-                orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+deptCode));
+        Department dept = repo.findById(id).
+                orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+id));
 
         return DepartmentMapper.toDepartmentResponseDto(dept);
     }
 
     @Transactional
     @Override
-    public DepartmentResponseDto updateDepartment(String deptCode,DepartmentRequestDto requestDto) {
-        Department department=repo.getDepartmentByDeptCode(deptCode).orElseThrow(() -> new DepartmentNotFoundException("Department not found with id "+deptCode));
+    public DepartmentResponseDto updateDepartment(String id,DepartmentRequestDto requestDto) {
+        Department department=repo.findById(id).orElseThrow(() -> new DepartmentNotFoundException("Department not found with id "+id));
 
         validators.validateDepartmentRequestDto(requestDto); //validate request
 
@@ -80,13 +80,13 @@ public class AdminServiceImpl implements AdminServices{
 
     @Transactional
     @Override
-    public String deleteDepartment(String deptCode)throws Exception {
-      Department dept=  repo.getDepartmentByDeptCode(deptCode)
-              .orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+deptCode));
+    public String deleteDepartment(String id)throws Exception {
+      Department dept=  repo.findById(id)
+              .orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+id));
 
-        Long count = employeeRepository.countEmployeesByDepartment_Id(dept.getDepartmentId());
+        Long count = employeeRepository.countEmployeesByDepartment_Id(dept.getId());
         if (count>0){
-            throw new InvalidOperation("still "+count+" employees are working in "+deptCode+" department so you can't delete it");
+            throw new InvalidOperation("still "+count+" employees are working in "+id+" department so you can't delete it");
         }
 
         repo.delete(dept);
@@ -108,9 +108,9 @@ public class AdminServiceImpl implements AdminServices{
 
     @Transactional
     @Override
-    public String transferDepartment(String empCode,String deptCode){
-        Department dept=repo.getDepartmentByDeptCode(deptCode)
-                .orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+deptCode));
+    public String transferDepartment(String empCode,String id){
+        Department dept=repo.findById(id)
+                .orElseThrow(() -> new DepartmentNotFoundException("Department not found with : "+id));
         Employee emp=employeeRepository.getEmployeeByEmpCode(empCode)
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with : "+empCode));
 
@@ -120,7 +120,7 @@ public class AdminServiceImpl implements AdminServices{
         return "successfully transferred "+empCode+" to "+dept.getDeptName();
     }
 
-    public String generateDeptCode() {
+    public String generateid() {
         Long id=repo.countAll();
         return "DEPT"+(id+1);
     }

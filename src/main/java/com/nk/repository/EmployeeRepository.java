@@ -17,11 +17,11 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     Optional<Employee> getEmployeeByEmpCode(String empCode);
     boolean existsByEmpCode(String empCode);
 
-    @Query("select count(e) from Employee e where e.department.deptCode=:deptId")
+    @Query("select count(e) from Employee e where e.department.id=:deptId")
     Long countEmployeesByDepartment_Id(@Param("deptId") String departmentId);
 
     @Modifying
     @Transactional
-    @Query("update Employee e set e.department.departmentId=:id where e.empCode=:empCode")
+    @Query("update Employee e set e.department.id=:id where e.empCode=:empCode")
     void transferEmployeeToDepartment(String empCode, Long id);
 }

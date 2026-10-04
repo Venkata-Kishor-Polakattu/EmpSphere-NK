@@ -5,7 +5,6 @@ import com.nk.dto.DepartmentRequestDto;
 import com.nk.dto.DepartmentResponseDto;
 import com.nk.service.AdminServices;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,21 +24,21 @@ public class AdminController {
         return ResponseEntity.ok().body(department);
     }
 
-    @GetMapping("/{deptCode}")
-    public ResponseEntity<DepartmentResponseDto> getDepartment(@PathVariable String deptCode) {
-        DepartmentResponseDto response = service.getDepartmentByDeptCode(deptCode);
+    @GetMapping("/{deptId}")
+    public ResponseEntity<DepartmentResponseDto> getDepartment(@PathVariable String id) {
+        DepartmentResponseDto response = service.getDepartmentByid(id);
         return ResponseEntity.ok().body(response);
     }
 
-    @PatchMapping("/update/{deptCode}")
-    public ResponseEntity<DepartmentResponseDto> updateDepartment(@PathVariable String deptCode, @RequestBody DepartmentRequestDto dto) {
-        DepartmentResponseDto response = service.updateDepartment(deptCode, dto);
+    @PatchMapping("/update/{deptId}")
+    public ResponseEntity<DepartmentResponseDto> updateDepartment(@PathVariable String id, @RequestBody DepartmentRequestDto dto) {
+        DepartmentResponseDto response = service.updateDepartment(id, dto);
         return ResponseEntity.ok().body(response);
     }
 
-    @DeleteMapping("/delete/{deptCode}")
-    public ResponseEntity<String>  deleteDepartment(@PathVariable String deptCode) throws Exception {
-        String s = service.deleteDepartment(deptCode);
+    @DeleteMapping("/delete/{deptId}")
+    public ResponseEntity<String>  deleteDepartment(@PathVariable String id) throws Exception {
+        String s = service.deleteDepartment(id);
         return ResponseEntity.ok().body("Department "+s+" deleted Successfully ");
     }
 
@@ -50,8 +49,8 @@ public class AdminController {
     }
 
     @PostMapping("/transferDepartment")
-    public ResponseEntity<String> transferDepartment(@Valid @RequestParam String empCode,String deptCode){
-        String res = service.transferDepartment(empCode, deptCode);
+    public ResponseEntity<String> transferDepartment(@Valid @RequestParam String empCode,String id){
+        String res = service.transferDepartment(empCode, id);
         return ResponseEntity.ok().body(res);
     }
 }

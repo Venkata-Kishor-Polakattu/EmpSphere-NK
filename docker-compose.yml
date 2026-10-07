@@ -4,18 +4,29 @@ services:
     image: mysql:8.0
     container_name: empsphere-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root@1677
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: empsphere
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_PASSWORD}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 30s
 
   app:
     build: .
     container_name: empsphere-app
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "1677:1677"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
 volumes:
   mysql-data:
